@@ -102,6 +102,8 @@ import DSDocumentation from "./pages/DSDocumentation";
 // Dynamic Notes Page
 import NotesPage from "./pages/Notes/NotesPage";
 
+import ContributorBoard from "./pages/ContributorBoard";
+
 const App = () => {
   const location = useLocation();
   const selectedAlgorithm = "bubbleSort";
@@ -229,6 +231,8 @@ const App = () => {
                 path="/notes/:language"
                 element={<Navigate to="/notes/:language/fundamentals" replace />}
               />
+
+              <Route path="/contributor-board" element={<ContributorBoard />} />
 
               {/* Learning & Settings */}
               <Route path="/learn" element={<LearnLanding />} />
