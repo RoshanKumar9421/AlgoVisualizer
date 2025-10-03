@@ -21,7 +21,7 @@ const VariablesAndDataTypes = () => {
         <br></br>
 
         Low-level memory manipulation</li>
-          <li>C++ mainly used in Competitive programming </li>
+          <li>C++ mainly used in Competitive programming and Data Structure</li>
         </ul>
       </section>
 
