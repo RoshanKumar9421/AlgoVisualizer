@@ -93,5 +93,13 @@
     "type": "graph",
     "description": "Dijkstra's Algorithm finds the shortest path between nodes in a graph with non-negative edge weights.",
     "useCase": "Navigation systems, network routing, and weighted shortest path problems."
+  }, 
+
+  {
+    "name": "KadansAlgorithm",
+    "type": "algorithm",
+    "description": "Kadane’s Algorithm is one of the most famous and efficient algorithms in Dynamic Programming",
+    "useCase":"ind the maximum sum of a contiguous subarray within a one-dimensional array of numbers."
   }
+  
 ]

@@ -66,6 +66,10 @@ import BranchBoundPage from "./pages/BranchBoundPage";
 import StringOverview from "./pages/StringOverview";
 import StringPage from "./pages/StringPage";
 
+
+import KadansAlgorithm from "./pages/KadansAlgorithm.jsx";
+
+
 // Components
 import LinkedListPage from "./components/pages/LinkedListPage";
 import Queue from "./components/Queue/Queue";
@@ -199,6 +203,9 @@ const App = () => {
                 <Route path="/tree" element={<TreePage />} />
                 <Route path="/dc-overview" element={<DCOverview />} />
                 <Route path="/dc" element={<DCPage />} />
+
+          <Route path="/pages/kadansAlgorithm" element={<KadansAlgorithm />} />   
+
                 <Route
                   path="/game-search-overview"
                   element={<GameSearchOverview />}

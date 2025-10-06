@@ -290,8 +290,48 @@ const algorithmDatabase = {
         spaceComplexity: "O(n)",
         implemented: true,
       },
+
+      {
+        name: "Binary Tree",
+        id: "binaryTree",
+        description:
+          "Hierarchical data structure where each node has at most two children.",
+        timeComplexity: {
+          insertion: "O(log n)",
+          deletion: "O(log n)",
+          search: "O(log n)",
+          traversal: "O(n)",
+        },
+        spaceComplexity: "O(n)",
+        implemented: true,
+      },
     ],
   },
+
+   algorithm: {
+    title: "Algorithm",
+    icon: "🏗️",
+    color: "#ffd93d",
+    algorithms: [
+      {
+        name: "Kadans Algorithm",
+        id: "kadansalgorithm",
+        description:
+          "Kadane’s Algorithm is one of the most famous and efficient algorithms in Dynamic Programming, used to find the maximum sum of a contiguous subarray within a one-dimensional array of numbers.",
+        timeComplexity: {
+          Brute : "O(n3)",
+          Optimal:"O(n)",
+        },
+        spaceComplexity: "O(1)",
+        implemented: true,
+      },
+      
+
+
+      
+    ],
+  },
+    
 };
 
 const getComplexityColor = (complexity) => {
@@ -310,39 +350,241 @@ const getComplexityColor = (complexity) => {
 // 2. SUB-COMPONENTS
 // ============================================================================
 
+// function AlgorithmCard({ algorithm }) {
+//   const navigate = useNavigate();
+//   const toKebab = s => s.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`);
+
+//   const handleCardClick = () => {
+//     if (algorithm.implemented) {
+//       if (
+//         algorithm.category === "dataStructures" &&
+//         algorithm.id === "linkedList"
+//       ) {
+//         navigate("/data-structures/linked-list");
+//       } else if (algorithm.category === "sorting") {
+//         navigate(`/sorting/${algorithm.id}/docs`);
+//       } else if (algorithm.category === "searching") {
+//         if (algorithm.id === "ternarySearch") {
+//         navigate("/searching/ternarySearch"); 
+//         }
+
+//         if (algorithm.id === "binarySearch") {
+//         navigate("/searching/binarySearch"); 
+//         }
+
+//         if (algorithm.id === "jumpSearch") {
+//         navigate("/searching/jumpSearch");
+//         }
+
+//         if (algorithm.id === "exponentialSearch") {
+//         navigate("/searching/exponentialSearch");
+//         }
+       
+//       } else if (algorithm.category === "dataStructures") {
+//         navigate(`/data-structures/${toKebab(algorithm.id)}`);
+//       }
+//     }
+//   };
+
+//   return (
+//     <div
+//       className={`algorithm-card ${algorithm.implemented ? "clickable" : ""}`}
+//       onClick={handleCardClick}
+//       title={algorithm.description}
+//       style={{ cursor: algorithm.implemented ? "pointer" : "default" }}
+//       data-aos="fade-up"
+//       data-aos-duration="1000"
+//       data-aos-once="true"
+//     >
+    
+//       <div className="card-header">
+//         <div className="card-title-group">
+//           <span className="card-icon">{algorithm.categoryIcon}</span>
+//           <h3 className="card-title">{algorithm.name}</h3>
+//         </div>
+//         {algorithm.implemented ? (
+//           <div className="status-badge implemented">Implemented</div>
+//         ) : (
+//           <div className="status-badge coming-soon">Coming Soon</div>
+//         )}
+//       </div>
+//       <p className="card-description">{algorithm.description}</p>
+//       <div className="card-category-badge">{algorithm.categoryTitle}</div>
+//     </div>
+//   );
+// }
+
+// // ============================================================================
+// // 3. MAIN COMPONENT DEFINITION
+// // ============================================================================
+
+// function DataStructuresPage() {
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [selectedCategory, setSelectedCategory] = useState("all");
+//   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
+
+//   const getAllAlgorithms = useCallback(() => {
+//     let allAlgos = [];
+//     Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
+//       category.algorithms.forEach((algo) => {
+//         allAlgos.push({
+//           ...algo,
+//           category: categoryKey,
+//           categoryTitle: category.title,
+//           categoryIcon: category.icon,
+//           categoryColor: category.color,
+//         });
+//       });
+//     });
+//     return allAlgos;
+//   }, []);
+
+//   useEffect(() => {
+//     let allAlgorithms = getAllAlgorithms();
+//     if (selectedCategory !== "all") {
+//       allAlgorithms = allAlgorithms.filter(
+//         (algo) => algo.category === selectedCategory
+//       );
+//     }
+//     if (searchTerm) {
+//       allAlgorithms = allAlgorithms.filter(
+//         (algo) =>
+//           algo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+//           algo.description.toLowerCase().includes(searchTerm.toLowerCase())
+//       );
+//     }
+
+    
+//     setFilteredAlgorithms(allAlgorithms);
+//   }, [searchTerm, selectedCategory, getAllAlgorithms]);
+
+//   const categories = useMemo(
+//     () => [
+//       {
+//         key: "all",
+//         label: "All",
+//         icon: BookOpen,
+//         count: getAllAlgorithms().length,
+//       },
+//       {
+//         key: "sorting",
+//         label: "Sorting",
+//         icon: Users,
+//         count: algorithmDatabase.sorting.algorithms.length,
+//       },
+//       {
+//         key: "searching",
+//         label: "Searching",
+//         icon: Search,
+//         count: algorithmDatabase.searching.algorithms.length,
+//       },
+//       {
+//         key: "dataStructures",
+//         label: "Data Structures",
+//         icon: Database,
+//         count: algorithmDatabase.dataStructures.algorithms.length,
+//       },
+//       {
+//       key: "algorithm",
+//       label: "Algorithm",
+//       icon: Zap,
+//       count: algorithmDatabase.algorithm.algorithms.length,
+//     },
+//     ],
+//     [getAllAlgorithms]
+//   );
+
+//   return (
+//     <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
+//       <h1 className="theme-title">Algorithm Documentation</h1>
+      
+//       {/* Search and Filter Section */}
+//       <div className="theme-card filters-section" data-aos="fade-up" data-aos-delay="200">
+//         <div className="search-bar">
+//           <Search size={20} className="search-icon" />
+//           <input
+//             type="text"
+//             placeholder="Search algorithms..."
+//             value={searchTerm}
+//             onChange={(e) => setSearchTerm(e.target.value)}
+//             className="form-control"
+//           />
+//         </div>
+//         <div className="category-filters">
+//           {categories.map((category) => {
+//             const IconComponent = category.icon;
+//             const isActive = selectedCategory === category.key;
+//             return (
+//               <button
+//                 key={category.key}
+//                 className={`btn ${isActive ? "btn-primary" : "btn-secondary"}`}
+//                 onClick={() => setSelectedCategory(category.key)}
+//               >
+//                 <IconComponent size={16} />
+//                 {category.label}
+//                 <span className="count-badge">{category.count}</span>
+//               </button>
+//             );
+//           })}
+//         </div>
+//       </div>
+
+//       {/* Results Grid */}
+//       <div className="results-grid">
+//         {filteredAlgorithms.length > 0 ? (
+//           filteredAlgorithms.map((algorithm) => (
+//             <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
+//           ))
+//         ) : (
+//           <div className="no-results-card theme-card" data-aos="fade-up" data-aos-delay="400">
+//             <Search size={48} />
+//             <h3>No algorithms found</h3>
+//             <p>Try adjusting your search terms or filters.</p>
+//           </div>
+//         )}
+
+        
+//       </div>
+//     </div>
+//   );
+
+  
+// }
+
+// export default DataStructuresPage;
+
+
+// ============================================================================
+// 2. SUB-COMPONENTS
+// ============================================================================
+
 function AlgorithmCard({ algorithm }) {
   const navigate = useNavigate();
   const toKebab = s => s.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`);
 
   const handleCardClick = () => {
-    if (algorithm.implemented) {
-      if (
-        algorithm.category === "dataStructures" &&
-        algorithm.id === "linkedList"
-      ) {
-        navigate("/data-structures/linked-list");
-      } else if (algorithm.category === "sorting") {
-        navigate(`/sorting/${algorithm.id}/docs`);
-      } else if (algorithm.category === "searching") {
-        if (algorithm.id === "ternarySearch") {
-        navigate("/searching/ternarySearch"); 
-        }
+    if (!algorithm.implemented) return;
 
-        if (algorithm.id === "binarySearch") {
-        navigate("/searching/binarySearch"); 
-        }
+    const routes = {
+      sorting: `/sorting/${algorithm.id}/docs`,
+      searching: {
+        binarySearch: "/searching/binarySearch",
+        ternarySearch: "/searching/ternarySearch",
+        jumpSearch: "/searching/jumpSearch",
+        exponentialSearch: "/searching/exponentialSearch",
+      },
+      dataStructures: `/data-structures/${toKebab(algorithm.id)}`,
+      algorithm: {
+        kadansalgorithm: "/algorithms/kadane",
+      },
+    };
 
-        if (algorithm.id === "jumpSearch") {
-        navigate("/searching/jumpSearch");
-        }
-
-        if (algorithm.id === "exponentialSearch") {
-        navigate("/searching/exponentialSearch");
-        }
-       
-      } else if (algorithm.category === "dataStructures") {
-        navigate(`/data-structures/${toKebab(algorithm.id)}`);
-      }
+    if (algorithm.category === "searching") {
+      navigate(routes.searching[algorithm.id] || "/searching");
+    } else if (algorithm.category === "algorithm") {
+      navigate(routes.algorithm[algorithm.id]);
+    } else {
+      navigate(routes[algorithm.category]);
     }
   };
 
@@ -356,7 +598,6 @@ function AlgorithmCard({ algorithm }) {
       data-aos-duration="1000"
       data-aos-once="true"
     >
-    
       <div className="card-header">
         <div className="card-title-group">
           <span className="card-icon">{algorithm.categoryIcon}</span>
@@ -400,6 +641,8 @@ function DataStructuresPage() {
   }, []);
 
   useEffect(() => {
+    AOS.init({ once: true });
+
     let allAlgorithms = getAllAlgorithms();
     if (selectedCategory !== "all") {
       allAlgorithms = allAlgorithms.filter(
@@ -413,35 +656,17 @@ function DataStructuresPage() {
           algo.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
+
     setFilteredAlgorithms(allAlgorithms);
   }, [searchTerm, selectedCategory, getAllAlgorithms]);
 
   const categories = useMemo(
     () => [
-      {
-        key: "all",
-        label: "All",
-        icon: BookOpen,
-        count: getAllAlgorithms().length,
-      },
-      {
-        key: "sorting",
-        label: "Sorting",
-        icon: Users,
-        count: algorithmDatabase.sorting.algorithms.length,
-      },
-      {
-        key: "searching",
-        label: "Searching",
-        icon: Search,
-        count: algorithmDatabase.searching.algorithms.length,
-      },
-      {
-        key: "dataStructures",
-        label: "Data Structures",
-        icon: Database,
-        count: algorithmDatabase.dataStructures.algorithms.length,
-      },
+      { key: "all", label: "All", icon: BookOpen, count: getAllAlgorithms().length },
+      { key: "sorting", label: "Sorting", icon: Users, count: algorithmDatabase.sorting.algorithms.length },
+      { key: "searching", label: "Searching", icon: Search, count: algorithmDatabase.searching.algorithms.length },
+      { key: "dataStructures", label: "Data Structures", icon: Database, count: algorithmDatabase.dataStructures.algorithms.length },
+      { key: "algorithm", label: "Algorithm", icon: Zap, count: algorithmDatabase.algorithm.algorithms.length },
     ],
     [getAllAlgorithms]
   );
@@ -450,7 +675,6 @@ function DataStructuresPage() {
     <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Algorithm Documentation</h1>
       
-      {/* Search and Filter Section */}
       <div className="theme-card filters-section" data-aos="fade-up" data-aos-delay="200">
         <div className="search-bar">
           <Search size={20} className="search-icon" />
@@ -481,7 +705,6 @@ function DataStructuresPage() {
         </div>
       </div>
 
-      {/* Results Grid */}
       <div className="results-grid">
         {filteredAlgorithms.length > 0 ? (
           filteredAlgorithms.map((algorithm) => (

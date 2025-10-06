@@ -78,3 +78,17 @@ export { binarySearch };
 
 import { jumpSearch } from "./jumpSearch.js";
 export { jumpSearch };
+
+// Kadane's Algorithm wrapper
+import { kadansAlgorithmWithStop } from "./kadansAlgorithm.js";
+
+export async function kadansAlgorithm(arr, setColorArray, delay) {
+  return await kadansAlgorithmWithStop(
+    arr,
+    noopSetArray,
+    setColorArray,
+    delay,
+    makeStopRef(),
+    noopUpdateStats
+  );
+}
