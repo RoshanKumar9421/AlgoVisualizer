@@ -60,6 +60,7 @@ const algorithmDatabase = {
         inPlace: true,
         adaptivity: "Adaptive",
         implemented: true,
+        
       },
       {
         name: "Merge Sort",
@@ -291,6 +292,7 @@ const algorithmDatabase = {
         implemented: true,
       },
 
+
       {
         name: "Binary Tree",
         id: "binaryTree",
@@ -329,6 +331,22 @@ const algorithmDatabase = {
 
 
       
+
+      {
+        name: "Trie",
+        id: "trie",
+        description:
+          "Prefix tree data structure for efficient string operations like search, insert, and prefix matching.",
+        timeComplexity: {
+          insertion: "O(m)",
+          deletion: "O(m)",
+          search: "O(m)",
+          prefixSearch: "O(m)",
+        },
+        spaceComplexity: "O(N)",
+        implemented: true,
+      },
+
     ],
   },
     
@@ -588,6 +606,7 @@ function AlgorithmCard({ algorithm }) {
     }
   };
 
+
   return (
     <div
       className={`algorithm-card ${algorithm.implemented ? "clickable" : ""}`}
@@ -602,17 +621,54 @@ function AlgorithmCard({ algorithm }) {
         <div className="card-title-group">
           <span className="card-icon">{algorithm.categoryIcon}</span>
           <h3 className="card-title">{algorithm.name}</h3>
-        </div>
-        {algorithm.implemented ? (
-          <div className="status-badge implemented">Implemented</div>
-        ) : (
-          <div className="status-badge coming-soon">Coming Soon</div>
-        )}
+
+ return (
+  <div
+    className={`algorithm-card ${algorithm.implemented ? "clickable" : ""}`}
+    onClick={handleCardClick}
+    title={algorithm.description}
+    style={{ cursor: algorithm.implemented ? "pointer" : "default" }}
+    data-aos="fade-up"
+    data-aos-duration="1000"
+    data-aos-once="true"
+  >
+    {/* Header */}
+    <div className="card-header flex items-center justify-between mb-3">
+      <div className="card-title-group flex items-center gap-2">
+        <span className="card-icon text-blue-500 text-lg">{algorithm.categoryIcon}</span>
+        <h3 className="card-title text-gray-800 font-semibold text-base leading-tight">
+          {algorithm.name}
+        </h3>
       </div>
-      <p className="card-description">{algorithm.description}</p>
-      <div className="card-category-badge">{algorithm.categoryTitle}</div>
+
+      {algorithm.implemented ? (
+        <div className="status-badge implemented text-xs font-medium bg-green-100 text-green-700 px-2 py-1 rounded-full">
+          Implemented
+
+        </div>
+      ) : (
+        <div className="status-badge coming-soon text-xs font-medium bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">
+          Coming Soon
+        </div>
+      )}
     </div>
-  );
+
+    {/* Description */}
+    <p className="card-description tracking-tighter text-sm text-gray-600 leading-relaxed mb-3 text-left text-pretty">
+      {algorithm.description}
+    </p>
+    {algorithm.category === "sorting" || algorithm.category === "searching" ? (
+      <div>
+        <p>TC : {algorithm.timeComplexity.averaget} </p>
+        <p>SC : {algorithm.spaceComplexity} </p>
+      </div>
+    ):null}
+    {/* Category Badge */}
+    <div className="card-category-badge mt-auto text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-md font-extrabold italic inline-block">
+      {algorithm.categoryTitle}
+    </div>
+  </div>
+);
 }
 
 // ============================================================================
@@ -620,6 +676,7 @@ function AlgorithmCard({ algorithm }) {
 // ============================================================================
 
 function DataStructuresPage() {
+   const { theme } = useTheme(); 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
@@ -671,34 +728,90 @@ function DataStructuresPage() {
     [getAllAlgorithms]
   );
 
-  return (
+ return (
     <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Algorithm Documentation</h1>
+
       
       <div className="theme-card filters-section" data-aos="fade-up" data-aos-delay="200">
         <div className="search-bar">
           <Search size={20} className="search-icon" />
+
+
+      {/* Search and Filter Section */}
+      <div
+        className="theme-card filters-section p-4 rounded-lg shadow-md"
+        style={{
+          backgroundColor: theme === "light" ? "#ffffff" : "#1f2937",
+          color: theme === "light" ? "#111827" : "#f9fafb",
+        }}
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        {/* Search bar */}
+        <div className="search-bar flex items-center mb-4">
+          <Search size={20} style={{ color: theme === "light" ? "#6b7280" : "#d1d5db" }} />
+
           <input
             type="text"
             placeholder="Search algorithms..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="form-control"
+            className="form-control ml-2 flex-1 p-2 rounded border"
+            style={{
+              backgroundColor: theme === "light" ? "#ffffff" : "#374151",
+              color: theme === "light" ? "#111827" : "#f9fafb",
+              borderColor: theme === "light" ? "#d1d5db" : "#4b5563",
+            }}
           />
         </div>
-        <div className="category-filters">
+
+        {/* Category Filters */}
+        <div className="category-filters flex flex-wrap gap-2">
           {categories.map((category) => {
             const IconComponent = category.icon;
             const isActive = selectedCategory === category.key;
             return (
               <button
                 key={category.key}
-                className={`btn ${isActive ? "btn-primary" : "btn-secondary"}`}
                 onClick={() => setSelectedCategory(category.key)}
+                className="flex items-center px-3 py-1 rounded transition-colors duration-200 font-medium"
+                style={{
+                  backgroundColor: isActive
+                    ? theme === "light"
+                      ? "#2563eb"
+                      : "#3b82f6"
+                    : theme === "light"
+                    ? "#f3f4f6"
+                    : "#374151",
+                  color: isActive
+                    ? "#ffffff"
+                    : theme === "light"
+                    ? "#111827"
+                    : "#d1d5db",
+                }}
               >
-                <IconComponent size={16} />
+                <IconComponent size={16} className="mr-1" />
                 {category.label}
-                <span className="count-badge">{category.count}</span>
+                <span
+                  className="count-badge ml-2 px-1 rounded text-xs"
+                  style={{
+                    backgroundColor: isActive
+                      ? theme === "light"
+                        ? "#1d4ed8"
+                        : "#2563eb"
+                      : theme === "light"
+                      ? "#e5e7eb"
+                      : "#4b5563",
+                    color: isActive
+                      ? "#ffffff"
+                      : theme === "light"
+                      ? "#111827"
+                      : "#f9fafb",
+                  }}
+                >
+                  {category.count}
+                </span>
               </button>
             );
           })}
@@ -711,8 +824,16 @@ function DataStructuresPage() {
             <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
           ))
         ) : (
-          <div className="no-results-card theme-card" data-aos="fade-up" data-aos-delay="400">
-            <Search size={48} />
+          <div
+            className="no-results-card theme-card p-6 rounded-lg flex flex-col items-center justify-center"
+            style={{
+              backgroundColor: theme === "light" ? "#ffffff" : "#1f2937",
+              color: theme === "light" ? "#111827" : "#f9fafb",
+            }}
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <Search size={48} style={{ marginBottom: "12px" }} />
             <h3>No algorithms found</h3>
             <p>Try adjusting your search terms or filters.</p>
           </div>
