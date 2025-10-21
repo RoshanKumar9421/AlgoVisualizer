@@ -404,6 +404,15 @@ const algorithmDatabase = {
       spaceComplexity:"O(1)",
       implemented:true,
     },
+    {
+      name:"Heap",
+      id:"heap",
+      description:
+      "A Heap is a special tree-based data structure that satisfies the heap property — in a Min-Heap, each parent node is less than or equal to its child nodes; in a Max-Heap, it’s the opposite.",
+      timeComplexity:"O(log n)",
+      spaceComplexity:"O(1)",
+      implemented:true,
+    },
 
 
     ],
